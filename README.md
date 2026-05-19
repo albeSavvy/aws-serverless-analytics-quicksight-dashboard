@@ -119,7 +119,6 @@ AWS Glue Data Catalog stores the processed table metadata used by Athena and Qui
 - [Architecture Diagram](architecture/README.md)
 - [Project Overview](docs/project-overview.md)
 - [Athena Sample Queries](sql/athena_sample_queries.sql)
-- [Mentor Presentation Notes](notes/mentor-presentation.md)
 - [Screenshots](screenshots/README.md)
 
 ## Certification Alignment
