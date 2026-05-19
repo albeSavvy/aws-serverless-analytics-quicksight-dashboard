@@ -12,7 +12,7 @@ The project was designed as a hands-on AWS Data Engineering and Analytics exerci
 
 Operations and logistics teams often need fast visibility into performance metrics, trends, exceptions, and process bottlenecks.
 
-This project simulates a lightweight analytics platform where structured data is uploaded to Amazon S3, cataloged through AWS Glue, queried with Athena, and visualized through QuickSight dashboards.
+This project simulates a lightweight analytics platform where structured data is uploaded to Amazon S3, processed through Lambda, cataloged through AWS Glue, queried with Athena, and visualized through QuickSight dashboards.
 
 The solution is relevant for:
 
@@ -32,6 +32,14 @@ Amazon S3
 Raw Data Layer
         |
         v
+AWS Lambda
+Ingestion / Processing
+        |
+        v
+Amazon S3
+Processed Data Layer
+        |
+        v
 AWS Glue Crawler
 Schema Discovery
         |
@@ -48,12 +56,39 @@ Amazon QuickSight
 Interactive Dashboard
 ```
 
+## Project Evidence
+
+### QuickSight Dashboard
+
+![QuickSight Dashboard](screenshots/quicksight-dashboard.png)
+
+The dashboard visualizes logistics delay metrics, including average delay by station, total delay minutes, and delayed parcel distribution.
+
+### S3 Data Lake Structure
+
+![S3 Bucket Structure](screenshots/s3-bucket-structure.png)
+
+The S3 bucket is organized into operational zones such as incoming, processed, failed, archive, and Athena query results.
+
+### Lambda Ingestion Function
+
+![Lambda Ingestion](screenshots/lambda-ingestion.png)
+
+The Lambda function is connected to an S3 trigger and processes incoming logistics event files into analytics-ready data.
+
+### Glue Data Catalog Table
+
+![Glue Data Catalog Table](screenshots/glue-data-catalog-table.png)
+
+AWS Glue Data Catalog stores the processed table metadata used by Athena and QuickSight.
+
 ## AWS Services Used
 
 | Service | Purpose |
 |---|---|
-| Amazon S3 | Stores raw and analytics-ready data files |
-| AWS Glue Crawler | Automatically discovers schema from S3 data |
+| Amazon S3 | Stores raw, processed, failed, archive, and Athena result data |
+| AWS Lambda | Processes incoming operational data files |
+| AWS Glue Crawler | Automatically discovers schema from processed S3 data |
 | AWS Glue Data Catalog | Stores metadata tables used by Athena |
 | Amazon Athena | Runs serverless SQL queries on S3 data |
 | Amazon QuickSight | Builds interactive BI dashboards |
@@ -64,6 +99,7 @@ Interactive Dashboard
 
 - Serverless analytics architecture
 - S3-based data lake foundation
+- Event-driven ingestion with Lambda
 - Automated schema discovery with Glue Crawler
 - Metadata management through Glue Data Catalog
 - SQL analytics with Amazon Athena
@@ -74,12 +110,13 @@ Interactive Dashboard
 
 ## Data Engineering Concepts Applied
 
-- Raw data layer
+- Raw and processed data layers
+- Ingestion and transformation separation
 - Metadata cataloging
 - Schema discovery
 - Serverless SQL analytics
 - Data lake fundamentals
-- Separation between storage, query, and visualization layers
+- Separation between storage, processing, query, and visualization layers
 - Analytics serving layer
 - Cost-aware querying
 
@@ -129,13 +166,15 @@ aws-serverless-analytics-quicksight-dashboard/
 
 ## Example Analytics Workflow
 
-1. Upload structured data files to an S3 bucket.
-2. Run an AWS Glue Crawler to infer schema.
-3. Store table metadata in the Glue Data Catalog.
-4. Query the cataloged dataset using Athena SQL.
-5. Connect Athena as a data source in QuickSight.
-6. Build visuals and dashboards for KPI monitoring.
-7. Clean up resources to avoid unnecessary costs.
+1. Upload structured logistics event data files to an S3 incoming folder.
+2. Trigger Lambda ingestion from S3 object creation.
+3. Validate and transform records into a processed S3 layer.
+4. Run an AWS Glue Crawler to infer schema from processed data.
+5. Store table metadata in the Glue Data Catalog.
+6. Query the cataloged dataset using Athena SQL.
+7. Connect Athena as a data source in QuickSight.
+8. Build visuals and dashboards for KPI monitoring.
+9. Clean up resources to avoid unnecessary costs.
 
 ## Cost Optimization
 
@@ -144,6 +183,7 @@ The project is designed to stay cost-conscious by using serverless services and 
 Cost-control practices:
 
 - Store only small demo datasets in S3
+- Use Lambda for event-driven processing instead of always-on compute
 - Use Athena selectively and avoid repeated unnecessary scans
 - Prefer compressed and columnar formats for future improvements
 - Clean up QuickSight trial/resources when no longer needed
@@ -158,6 +198,7 @@ Relevant DEA-C01 topics:
 
 - Data ingestion into S3
 - Data lake design
+- Serverless transformation with Lambda
 - Metadata cataloging
 - Schema discovery
 - SQL-based analytics
@@ -172,10 +213,9 @@ It also supports Solution Architect thinking through service selection, tradeoff
 
 - Add partitioned S3 dataset layout
 - Convert CSV/JSON files to Parquet
-- Add Glue ETL job for transformation
+- Add Glue ETL job for larger-scale transformation
 - Add Athena views for business KPIs
 - Add QuickSight calculated fields
-- Add dashboard screenshots
 - Add Infrastructure as Code with Terraform or CloudFormation
 - Add CI/CD documentation for data pipeline deployment
 
