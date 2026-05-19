@@ -1,28 +1,28 @@
 # AWS Serverless Analytics QuickSight Dashboard
 
-## Overview
+## Project in One Sentence
 
-This project implements a serverless analytics workflow on AWS using Amazon S3, AWS Glue Data Catalog, Amazon Athena, and Amazon QuickSight.
+I built a serverless AWS analytics workflow that ingests operational logistics data into S3, processes it with Lambda, catalogs it with Glue, queries it with Athena, and visualizes KPIs in QuickSight.
 
-The goal is to transform raw structured operational data into queryable datasets and interactive business intelligence dashboards without managing servers.
+## What I Built
 
-The project was designed as a hands-on AWS Data Engineering and Analytics exercise, with a focus on data lake fundamentals, schema discovery, SQL analytics, dashboarding, cost optimization, and production-oriented cloud thinking.
+This project is a small cloud-based analytics system designed to transform raw operational data into an interactive business intelligence dashboard.
 
-## Business Scenario
+It includes:
 
-Operations and logistics teams often need fast visibility into performance metrics, trends, exceptions, and process bottlenecks.
+- S3 data lake structure
+- Lambda ingestion and processing
+- Glue Data Catalog table
+- Athena query layer
+- QuickSight dashboard for KPI visualization
 
-This project simulates a lightweight analytics platform where structured data is uploaded to Amazon S3, processed through Lambda, cataloged through AWS Glue, queried with Athena, and visualized through QuickSight dashboards.
+## Why I Built It
 
-The solution is relevant for:
+I built this project to practice AWS data engineering and analytics services in a realistic operations/logistics scenario.
 
-- operations performance monitoring
-- logistics KPI analysis
-- process improvement reporting
-- business intelligence dashboards
-- data-driven decision making
+The goal was to move beyond theoretical study and get hands-on experience with a complete analytics workflow, from raw data ingestion to business visualization.
 
-## Architecture
+## Architecture at a Glance
 
 ```text
 Structured Data Files
@@ -95,119 +95,14 @@ AWS Glue Data Catalog stores the processed table metadata used by Athena and Qui
 | AWS IAM | Manages access permissions |
 | Amazon CloudWatch | Supports monitoring and troubleshooting |
 
-## Key Features
+## What I Learned
 
-- Serverless analytics architecture
-- S3-based data lake foundation
-- Event-driven ingestion with Lambda
-- Automated schema discovery with Glue Crawler
-- Metadata management through Glue Data Catalog
-- SQL analytics with Amazon Athena
-- QuickSight dashboard for business visualization
-- Cost-conscious design
-- Cleanup documentation to avoid unexpected costs
-- Portfolio-ready AWS documentation
-
-## Data Engineering Concepts Applied
-
-- Raw and processed data layers
-- Ingestion and transformation separation
-- Metadata cataloging
-- Schema discovery
-- Serverless SQL analytics
-- Data lake fundamentals
-- Separation between storage, processing, query, and visualization layers
-- Analytics serving layer
-- Cost-aware querying
-
-## Solution Architecture Concepts Applied
-
-- Managed services selection
-- Serverless-first architecture
-- Decoupled analytics layers
-- IAM-based access control
-- Operational visibility
-- Cost optimization
-- Scalability by design
-- Low-maintenance architecture
-
-## Repository Structure
-
-```text
-aws-serverless-analytics-quicksight-dashboard/
-│
-├── README.md
-├── .gitignore
-├── architecture/
-│   ├── README.md
-│   ├── data-flow.md
-│   └── design-decisions.md
-├── docs/
-│   ├── project-overview.md
-│   ├── setup-guide.md
-│   ├── athena-queries.md
-│   ├── quicksight-dashboard.md
-│   ├── cost-optimization.md
-│   ├── security.md
-│   ├── monitoring.md
-│   └── cleanup.md
-├── sql/
-│   ├── athena_sample_queries.sql
-│   └── README.md
-├── data/
-│   ├── README.md
-│   └── sample/
-│       └── README.md
-├── screenshots/
-│   └── README.md
-└── notes/
-    └── mentor-presentation.md
-```
-
-## Example Analytics Workflow
-
-1. Upload structured logistics event data files to an S3 incoming folder.
-2. Trigger Lambda ingestion from S3 object creation.
-3. Validate and transform records into a processed S3 layer.
-4. Run an AWS Glue Crawler to infer schema from processed data.
-5. Store table metadata in the Glue Data Catalog.
-6. Query the cataloged dataset using Athena SQL.
-7. Connect Athena as a data source in QuickSight.
-8. Build visuals and dashboards for KPI monitoring.
-9. Clean up resources to avoid unnecessary costs.
-
-## Cost Optimization
-
-The project is designed to stay cost-conscious by using serverless services and avoiding always-on infrastructure.
-
-Cost-control practices:
-
-- Store only small demo datasets in S3
-- Use Lambda for event-driven processing instead of always-on compute
-- Use Athena selectively and avoid repeated unnecessary scans
-- Prefer compressed and columnar formats for future improvements
-- Clean up QuickSight trial/resources when no longer needed
-- Delete Glue Crawlers, databases, and temporary S3 data after testing
-- Monitor AWS Billing and Budgets
-
-## Certification Alignment
-
-This project supports practical learning for the AWS Certified Data Engineer Associate certification.
-
-Relevant DEA-C01 topics:
-
-- Data ingestion into S3
-- Data lake design
-- Serverless transformation with Lambda
-- Metadata cataloging
-- Schema discovery
-- SQL-based analytics
-- Data serving layer
-- Security and IAM
-- Cost optimization
-- Monitoring and operational awareness
-
-It also supports Solution Architect thinking through service selection, tradeoff analysis, and cost-aware architecture design.
+- How to structure a basic S3 data lake with raw and processed areas
+- How to process incoming files with Lambda
+- How Glue Crawler discovers schema from S3 data
+- How Athena queries cataloged data without managing servers
+- How QuickSight can turn analytics datasets into business dashboards
+- How to think about cost optimization, cleanup, and architecture tradeoffs
 
 ## Future Improvements
 
@@ -218,6 +113,18 @@ It also supports Solution Architect thinking through service selection, tradeoff
 - Add QuickSight calculated fields
 - Add Infrastructure as Code with Terraform or CloudFormation
 - Add CI/CD documentation for data pipeline deployment
+
+## Technical Documentation
+
+- [Architecture Diagram](architecture/README.md)
+- [Project Overview](docs/project-overview.md)
+- [Athena Sample Queries](sql/athena_sample_queries.sql)
+- [Mentor Presentation Notes](notes/mentor-presentation.md)
+- [Screenshots](screenshots/README.md)
+
+## Certification Alignment
+
+This project supports practical learning for AWS Data Engineering and Solution Architecture topics such as S3 data lake design, Lambda-based ingestion, Glue metadata cataloging, Athena SQL analytics, QuickSight dashboarding, IAM access control, monitoring, and cost optimization.
 
 ## Author
 
